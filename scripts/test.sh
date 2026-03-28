@@ -20,13 +20,24 @@ echo "Running project checks from: $ROOT_DIR"
 echo
 
 run_check "Shell syntax: convert-image-to-jpg.sh" zsh -n scripts/convert-image-to-jpg.sh
+run_check "Shell syntax: setup-new-repo.sh" zsh -n scripts/setup-new-repo.sh
 run_check "Shell syntax: install.sh" zsh -n scripts/install.sh
 run_check "Shell syntax: uninstall.sh" zsh -n scripts/uninstall.sh
+run_check "Shell syntax: deploy.sh" zsh -n scripts/deploy.sh
+run_check "Shell syntax: install-git-hooks.sh" zsh -n scripts/install-git-hooks.sh
+run_check "Shell syntax: baseline deploy.sh" zsh -n templates/repo-baseline/scripts/deploy.sh
+run_check "Shell syntax: baseline install-git-hooks.sh" zsh -n templates/repo-baseline/scripts/install-git-hooks.sh
+run_check "Shell syntax: baseline test.sh" zsh -n templates/repo-baseline/scripts/test.sh
+run_check "Shell syntax: baseline pre-commit" zsh -n templates/repo-baseline/.githooks/pre-commit
 
 run_check "Plist validation: workflow Info.plist" \
   plutil -lint templates/Convert\ to\ JPG.workflow/Contents/Info.plist
 run_check "Plist validation: workflow document.wflow" \
   plutil -lint templates/Convert\ to\ JPG.workflow/Contents/Resources/document.wflow
+run_check "Plist validation: setup repo Info.plist" \
+  plutil -lint templates/Setup\ New\ Repo.workflow/Contents/Info.plist
+run_check "Plist validation: setup repo document.wflow" \
+  plutil -lint templates/Setup\ New\ Repo.workflow/Contents/Resources/document.wflow
 
 run_check "Embedded self-tests: convert-image-to-jpg.sh" \
   zsh scripts/convert-image-to-jpg.sh --self-test

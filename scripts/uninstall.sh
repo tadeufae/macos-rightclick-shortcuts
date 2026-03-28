@@ -4,21 +4,66 @@ set -euo pipefail
 
 APP_SUPPORT_DIR="$HOME/Library/Application Support/MacOS Right Click Shortcuts"
 SERVICES_DIR="$HOME/Library/Services"
-WORKFLOW_NAME="Utilz - Convert to JPG.workflow"
-LEGACY_WORKFLOW_NAME="Convert to JPG.workflow"
-TARGET_WORKFLOW="$SERVICES_DIR/$WORKFLOW_NAME"
-LEGACY_TARGET_WORKFLOW="$SERVICES_DIR/$LEGACY_WORKFLOW_NAME"
-HELPER_TARGET="$APP_SUPPORT_DIR/convert-image-to-jpg.sh"
-LEGACY_HELPER_TARGET="$APP_SUPPORT_DIR/convert-heic-to-jpg.sh"
 PBS="/System/Library/CoreServices/pbs"
+USER_BIN_DIR="$HOME/.local/bin"
+ZPROFILE_PATH="$HOME/.zprofile"
+PATH_MARKER_BEGIN="# >>> utilz path >>>"
+PATH_MARKER_END="# <<< utilz path <<<"
 
-rm -f "$HELPER_TARGET" "$LEGACY_HELPER_TARGET"
-rm -rf "$TARGET_WORKFLOW" "$LEGACY_TARGET_WORKFLOW" "$APP_SUPPORT_DIR"
+typeset -a workflow_names=(
+  "Utilz - Convert to JPG.workflow"
+  "Utilz - Setup New Repo.workflow"
+  "Convert to JPG.workflow"
+)
 
-if [[ -x "$PBS" ]]; then
-  "$PBS" -update >/dev/null 2>&1 || true
-fi
+typeset -a helper_names=(
+  "convert-image-to-jpg.sh"
+  "setup-new-repo.sh"
+  "convert-heic-to-jpg.sh"
+)
 
-echo "Removed: $TARGET_WORKFLOW"
-echo "Removed: $LEGACY_TARGET_WORKFLOW"
-echo "Removed: $APP_SUPPORT_DIR"
+typeset -a cli_command_names=(
+  "setup_new_repo"
+  "setup_new_repo.sh"
+)
+
+typeset -a removed_paths=()
+
+main() {
+  local workflow_name
+  local helper_name
+  local cli_command_name
+
+  for helper_name in "${helper_names[@]}"; do
+    rm -f "$APP_SUPPORT_DIR/$helper_name"
+    removed_paths+=("$APP_SUPPORT_DIR/$helper_name")
+  done
+
+  rm -rf "$APP_SUPPORT_DIR/repo-baseline"
+  removed_paths+=("$APP_SUPPORT_DIR/repo-baseline")
+
+  for workflow_name in "${workflow_names[@]}"; do
+    rm -rf "$SERVICES_DIR/$workflow_name"
+    removed_paths+=("$SERVICES_DIR/$workflow_name")
+  done
+
+  for cli_command_name in "${cli_command_names[@]}"; do
+    rm -f "$USER_BIN_DIR/$cli_command_name"
+    removed_paths+=("$USER_BIN_DIR/$cli_command_name")
+  done
+
+  if [[ -f "$ZPROFILE_PATH" ]] && grep -Fq "$PATH_MARKER_BEGIN" "$ZPROFILE_PATH"; then
+    perl -0pi -e 's/\n?\Q'"$PATH_MARKER_BEGIN"'\E\nexport PATH="\$HOME\/\.local\/bin:\$PATH"\n\Q'"$PATH_MARKER_END"'\E\n?//g' "$ZPROFILE_PATH"
+    removed_paths+=("$ZPROFILE_PATH (Utilz PATH block)")
+  fi
+
+  rmdir "$APP_SUPPORT_DIR" >/dev/null 2>&1 || true
+
+  if [[ -x "$PBS" ]]; then
+    "$PBS" -update >/dev/null 2>&1 || true
+  fi
+
+  printf 'Removed: %s\n' "${removed_paths[@]}"
+}
+
+main "$@"
