@@ -1,0 +1,36 @@
+<svg width="512" height="512" viewBox="40 32 432 432" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="64" y1="56" x2="444" y2="456" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#163A70"/>
+      <stop offset="0.52" stop-color="#1D4A8C"/>
+      <stop offset="1" stop-color="#0E2649"/>
+    </linearGradient>
+    <linearGradient id="folder" x1="104" y1="170" x2="400" y2="352" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F6B94F"/>
+      <stop offset="1" stop-color="#D98B1E"/>
+    </linearGradient>
+    <linearGradient id="badge" x1="292" y1="280" x2="388" y2="376" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#5EE0C2"/>
+      <stop offset="1" stop-color="#1BB5A1"/>
+    </linearGradient>
+    <filter id="shadow" x="52" y="44" width="408" height="424" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+      <feOffset dy="20"/>
+      <feGaussianBlur stdDeviation="18"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.0196078 0 0 0 0 0.0862745 0 0 0 0 0.180392 0 0 0 0.28 0"/>
+      <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1_1"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1_1" result="shape"/>
+    </filter>
+  </defs>
+  <rect x="64" y="56" width="384" height="384" rx="96" fill="url(#bg)"/>
+  <g filter="url(#shadow)">
+    <path d="M132 184C132 167.431 145.431 154 162 154H226.942C236.564 154 245.583 158.619 251.193 166.414L267.807 189.586C273.417 197.381 282.436 202 292.058 202H350C366.569 202 380 215.431 380 232V328C380 344.569 366.569 358 350 358H162C145.431 358 132 344.569 132 328V184Z" fill="url(#folder)"/>
+    <path d="M132 198C132 181.431 145.431 168 162 168H223.116C232.273 168 240.89 172.186 246.579 179.352L260.421 196.648C266.11 203.814 274.727 208 283.884 208H380V232H132V198Z" fill="#FFD57D"/>
+    <text x="170" y="348" fill="#FFD86B" font-family="Arial, Helvetica, sans-serif" font-size="74" font-weight="700" letter-spacing="-3">TF</text>
+    <rect x="286" y="274" width="102" height="102" rx="32" fill="url(#badge)"/>
+    <path d="M321 331L339 349L355 302" stroke="white" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <path d="M166 119L174.5 95L183 119L207 127.5L183 136L174.5 160L166 136L142 127.5L166 119Z" fill="#9FD7FF"/>
+  <path d="M363 135L368.5 119L374 135L390 140.5L374 146L368.5 162L363 146L347 140.5L363 135Z" fill="#7EE6CF"/>
+</svg>
