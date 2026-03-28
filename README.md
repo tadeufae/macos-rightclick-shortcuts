@@ -21,7 +21,7 @@ This repo installs a Finder Quick Action named `Utilz: Convert to JPG`. Select o
 ## Install
 
 ```bash
-chmod +x scripts/install.sh scripts/uninstall.sh scripts/test.sh scripts/install-git-hooks.sh scripts/convert-image-to-jpg.sh
+chmod +x scripts/install.sh scripts/uninstall.sh scripts/test.sh scripts/install-git-hooks.sh scripts/deploy.sh scripts/convert-image-to-jpg.sh
 ./scripts/install.sh
 ```
 
@@ -35,6 +35,12 @@ If this directory is a Git repository, you can also enforce that automatically w
 
 ```bash
 ./scripts/install-git-hooks.sh
+```
+
+To run checks and push the current branch in one step:
+
+```bash
+./scripts/deploy.sh
 ```
 
 The installer copies:
@@ -81,6 +87,12 @@ To enforce those checks before every commit, install the versioned pre-commit ho
 ./scripts/install-git-hooks.sh
 ```
 
+To run the same checks and push the current branch after they pass:
+
+```bash
+./scripts/deploy.sh
+```
+
 That script currently covers:
 
 - Shell syntax validation for the helper and install scripts
@@ -99,6 +111,7 @@ That script currently covers:
 ├── assets/demo-finder-menu.png
 ├── assets/utilz-logo.svg
 ├── scripts/convert-image-to-jpg.sh
+├── scripts/deploy.sh
 ├── scripts/install.sh
 ├── scripts/uninstall.sh
 └── templates/Convert to JPG.workflow/
